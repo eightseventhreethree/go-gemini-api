@@ -1,4 +1,4 @@
-package publicapi
+package gemini
 
 var Endpoints = map[string]map[string]string{
 	"v1": {
