@@ -3,6 +3,9 @@ package gemini
 import (
 	"fmt"
 	"testing"
+
+	"github.com/eightseventhreethree/gemini-go2rest/pkg/handlers"
+	"github.com/stretchr/testify/require"
 )
 
 // global client for test
@@ -10,58 +13,58 @@ var CLIENT = NewClient(&ClientOpts{
 	BaseURL: "https://api.sandbox.gemini.com",
 })
 
+// global symbol
+const SYMBOL = "BTCUSD"
+
 func TestGetSymbols(t *testing.T) {
 	resp, err := CLIENT.GetSymbols()
+	handlers.CheckErrLogT(t, err, "TestGetSymbols")
+	count := len(resp.Symbols)
+	require.Equal(t, resp.Count, count, "count should be equal")
 	if err != nil {
-		t.Error(err)
+		fmt.Printf("%+v\n", resp)
 	}
-	if len(resp.Symbols) != resp.Count {
-		t.Errorf("Failed to return sufficient symbols: %v error: %ss", resp.Symbols, err)
-	}
-	fmt.Printf("%#v", resp)
 }
 
 func TestGetSymbolDetails(t *testing.T) {
-	symbol := "BTCUSD"
-	resp, err := CLIENT.GetSymbolDetails(&SymbolRequest{Name: symbol})
+	resp, err := CLIENT.GetSymbolDetails(&SymbolRequest{Name: SYMBOL})
+	handlers.CheckErrLogT(t, err, "TestGetSymbolDetails")
+	require.Equal(t, resp.Symbol, SYMBOL, "these symbols should be equal")
 	if err != nil {
-		t.Error(err)
+		fmt.Printf("%+v\n", resp)
 	}
-	if resp.Symbol != symbol {
-		t.Errorf("Failed to find %s in resp", symbol)
-	}
-	fmt.Printf("%#v", resp)
 }
 
 func TestGetTickerV1(t *testing.T) {
-	resp, err := CLIENT.GetTickerV1(&SymbolRequest{Name: "BTCUSD"})
+	resp, err := CLIENT.GetTickerV1(&SymbolRequest{Name: SYMBOL})
+	handlers.CheckErrLogT(t, err, "TestGetTickerV1")
+	require.NotZero(t, resp.Volume)
 	if err != nil {
-		t.Error(err)
+		fmt.Printf("%+v\n", resp)
 	}
-	if resp.StatusCode() != 200 {
-		t.Error("Failed to get 200")
+}
+
+func TestGetTickerV2(t *testing.T) {
+	resp, err := CLIENT.GetTickerV2(&SymbolRequest{Name: SYMBOL})
+	handlers.CheckErrLogT(t, err, "TestGetTickerV2")
+	require.Equal(t, resp.Symbol, SYMBOL, "these symbols should be equal")
+	if err != nil {
+		fmt.Printf("%+v\n", resp)
 	}
-	fmt.Println(resp)
 }
 
 func TestGetCandles(t *testing.T) {
-	resp, err := CLIENT.GetCandles(&CandlesRequest{Symbol: "BTCUSD", TimeFrame: Min1})
+	resp, err := CLIENT.GetCandles(&CandlesRequest{Symbol: SYMBOL, TimeFrame: Min1})
+	handlers.CheckErrLogT(t, err, "TestGetCandles")
 	if err != nil {
-		t.Error(err)
+		fmt.Printf("%+v\n", resp)
 	}
-	if resp.StatusCode() != 200 {
-		t.Error("Failed to get 200")
-	}
-	//fmt.Println(resp)
 }
 
 func TestGetCurrentOrderBook(t *testing.T) {
-	resp, err := CLIENT.GetCurrentOrderBook(&OrderBookRequest{Symbol: "btcusd", LimitBids: 10, LimitAsks: 10})
+	resp, err := CLIENT.GetCurrentOrderBook(&OrderBookRequest{Symbol: SYMBOL, LimitBids: 10, LimitAsks: 10})
+	handlers.CheckErrLogT(t, err, "TestGetCurrentOrderBook")
 	if err != nil {
-		t.Error(err)
+		fmt.Printf("%+v\n", resp)
 	}
-	if resp.StatusCode() != 200 {
-		t.Error("Failed to get 200")
-	}
-	fmt.Println(resp)
 }

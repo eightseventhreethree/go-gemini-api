@@ -12,7 +12,7 @@ var Endpoints = map[string]map[string]string{
 		"price-feed":         "/v1/pricefeed",
 	},
 	"v2": {
-		"ticker-v2": "/v2/ticker/%s",
-		"candles":   "/v2/candles/%s/%s",
+		"ticker":  "/v2/ticker/%s",
+		"candles": "/v2/candles/%s/%s",
 	},
 }

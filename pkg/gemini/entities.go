@@ -1,6 +1,8 @@
 package gemini
 
-import "github.com/shopspring/decimal"
+import (
+	"github.com/shopspring/decimal"
+)
 
 type SymbolRequest struct {
 	Name string `json:"name"`
@@ -22,15 +24,48 @@ type SymbolDetailResponse struct {
 	WrapEnabled    bool             `json:"wrap_enabled"`
 }
 
+type TickerV1Response struct {
+	Bid    decimal.Decimal        `json:"bid"`
+	Ask    decimal.Decimal        `json:"ask"`
+	Last   decimal.Decimal        `json:"last"`
+	Volume map[string]interface{} `json:"volume"`
+}
+
+type TickerV2Response struct {
+	Symbol  string            `json:"symbol"`
+	Open    decimal.Decimal   `json:"open"`
+	High    decimal.Decimal   `json:"high"`
+	Low     decimal.Decimal   `json:"low"`
+	Close   decimal.Decimal   `json:"close"`
+	Changes []decimal.Decimal `json:"changes"`
+	Bid     decimal.Decimal   `json:"bid"`
+	Ask     decimal.Decimal   `json:"ask"`
+}
+
 type CandlesRequest struct {
 	Symbol    string       `json:"symbol"`
 	TimeFrame TimeNotation `json:"time_frame"`
+}
+
+type CandlesResponse struct {
+	Candles [][]decimal.Decimal
 }
 
 type OrderBookRequest struct {
 	Symbol    string `json:"symbol"`
 	LimitBids int32  `json:"limit_bids"`
 	LimitAsks int32  `json:"limit_asks"`
+}
+
+type OrderBookResponse struct {
+	Bids []OrderBookFields
+	Asks []OrderBookFields
+}
+
+type OrderBookFields struct {
+	Price  decimal.Decimal `json:"price"`
+	Amount decimal.Decimal `json:"amount"`
+	// timestamp docs note not to use, unimplemented
 }
 
 type ValidOrderStatus string
