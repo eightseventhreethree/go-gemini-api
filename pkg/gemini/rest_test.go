@@ -68,3 +68,19 @@ func TestGetCurrentOrderBook(t *testing.T) {
 		fmt.Printf("%+v\n", resp)
 	}
 }
+
+func TestGetCurrentAuction(t *testing.T) {
+	resp, err := CLIENT.GetCurrentAuction(&SymbolRequest{Name: SYMBOL})
+	handlers.CheckErrLogT(t, err, "TestGetCurrentAuction")
+	if err != nil {
+		fmt.Printf("%+v\n", resp)
+	}
+}
+
+func TestGetPriceFeed(t *testing.T) {
+	resp, err := CLIENT.GetPriceFeed()
+	handlers.CheckErrLogT(t, err, "TestGetPriceFeed")
+	if err != nil {
+		fmt.Printf("%+v\n", resp)
+	}
+}

@@ -24,6 +24,23 @@ type SymbolDetailResponse struct {
 	WrapEnabled    bool             `json:"wrap_enabled"`
 }
 
+type CurrentAuctionResponse struct {
+	ClosedUntilMS               int64           `json:"closed_until_ms"`
+	LastAuctionEID              int32           `json:"last_auction_eid"`
+	LastAuctionPrice            decimal.Decimal `json:"last_auction_price"`
+	LastAuctionQuanity          decimal.Decimal `json:"last_auction_quantity"`
+	LastHighestBidPrice         decimal.Decimal `json:"last_highest_bid_price"`
+	LastLowestAskPrice          decimal.Decimal `json:"last_lowest_ask_price"`
+	LastCollarPrice             decimal.Decimal `json:"last_collar_price"`
+	MostRecentIndicativePrice   decimal.Decimal `json:"most_recent_indicative_price"`
+	MostRecentIndicitiveQuanity decimal.Decimal `json:"most_recent_indicative_quantity"`
+	MostRecentHighestBidPrice   decimal.Decimal `json:"most_recent_highest_bid_price"`
+	MostRecentLowestAskPrice    decimal.Decimal `json:"most_recent_lowest_ask_price"`
+	MostRecentCollarPrice       decimal.Decimal `json:"most_recent_collar_price"`
+	NextUpdateMS                int64           `json:"next_update_ms"`
+	NextAuctionMS               int64           `json:"next_auction_ms"`
+}
+
 type TickerV1Response struct {
 	Bid    decimal.Decimal        `json:"bid"`
 	Ask    decimal.Decimal        `json:"ask"`
@@ -60,6 +77,12 @@ type OrderBookRequest struct {
 type OrderBookResponse struct {
 	Bids []OrderBookFields
 	Asks []OrderBookFields
+}
+
+type PriceFeedResponse struct {
+	Pair             string `json:"pair"`
+	Price            string `json:"price"`
+	PercentChange24h string `json:"percentChange24h"`
 }
 
 type OrderBookFields struct {
