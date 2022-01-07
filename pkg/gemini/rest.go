@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/eightseventhreethree/gemini-go2rest/pkg/handlers"
+	"github.com/eightseventhreethree/go-gemini-api/pkg/handlers"
 )
 
 type ClientOpts struct {

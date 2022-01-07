@@ -1,4 +1,4 @@
-module github.com/eightseventhreethree/gemini-go2rest
+module github.com/eightseventhreethree/go-gemini-api
 
 require (
 	github.com/shopspring/decimal v1.3.1

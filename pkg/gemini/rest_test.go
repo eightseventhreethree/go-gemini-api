@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/eightseventhreethree/gemini-go2rest/pkg/handlers"
+	"github.com/eightseventhreethree/go-gemini-api/pkg/handlers"
 	"github.com/stretchr/testify/require"
 )
 
