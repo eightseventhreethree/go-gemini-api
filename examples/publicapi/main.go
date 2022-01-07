@@ -1,35 +1,34 @@
 package main
 
-/*
 import (
 	"fmt"
 	"time"
 
 	"github.com/eightseventhreethree/gemini-go2rest/pkg/gemini"
-	"github.com/eightseventhreethree/gemini-go2rest/pkg/gemini/publicapi"
+	"github.com/eightseventhreethree/gemini-go2rest/pkg/handlers"
 )
 
 func main() {
-	pub := publicapi.Client{Client: gemini.New(&gemini.ClientOpts{
-		BaseURL:    "https://api.sandbox.gemini.com",
+	api := gemini.NewClient(&gemini.ClientOpts{
+		BaseURL:    "https://api.gemini.com",
 		Timeout:    time.Second.Round(10),
 		RetryLimit: 3,
 		RetryDelay: time.Second.Round(3),
-		ApiKey:     "xxxxxx",
-		ApiSecret:  "xxxxx",
-	})}
+		//ApiKey:     "xxxxxx",
+		//ApiSecret:  "xxxxx",
+	})
 
-	resp, err := pub.GetSymbols()
-	if err != nil {
-		fmt.Println(err)
+	resp, err := api.GetSymbols()
+	handlers.CheckErrLog(err, "failed to GetSymbols")
+	for _, v := range resp.Symbols {
+		sym := &gemini.SymbolRequest{Name: v}
+		symDetails, err := api.GetSymbolDetails(sym)
+		handlers.CheckErrLog(err, "failed to call GetSymbolDetails")
+		if symDetails.Status != gemini.Closed {
+			fmt.Println(v)
+			tickerResp, err := api.GetTickerV2(sym)
+			handlers.CheckErrLog(err, "failed to call GetTickerV1")
+			fmt.Println(tickerResp.Changes)
+		}
 	}
-	fmt.Println(resp)
-
-	resp, err = pub.GetSymbolDetails("btcusd")
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(resp)
-
 }
-*/
