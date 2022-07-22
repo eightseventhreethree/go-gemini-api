@@ -1,18 +1,22 @@
 package gemini
 
-var Endpoints = map[string]map[string]string{
-	"v1": {
-		"symbols":            "/v1/symbols",
-		"symbol-details":     "/v1/symbols/details/%s",
-		"ticker":             "/v1/pubticker/%s",
-		"current-order-book": "/v1/book/%s",
-		"trade-history":      "/v1/trades/%s",
-		"current-auction":    "/v1/auction/%s",
-		"auction-history":    "/v1/auction/%s/history",
-		"price-feed":         "/v1/pricefeed",
-	},
-	"v2": {
-		"ticker":  "/v2/ticker/%s",
-		"candles": "/v2/candles/%s/%s",
-	},
+import "fmt"
+
+type Endpoints string
+
+const (
+	V1Symbols          Endpoints = "/v1/symbols"
+	V1SymbolsDetails             = "/v1/symbols/details/%s"
+	V1Ticker                     = "/v1/pubticker/%s"
+	V1CurrentOrderBook           = "/v1/book/%s"
+	V1TradeHistory               = "/v1/trades/%s"
+	V1CurrentAuction             = "/v1/auction/%s"
+	V1AuctionHistory             = "/v1/auction/%s/history"
+	V1PriceFeed                  = "/v1/pricefeed"
+	V2Ticker                     = "/v2/ticker/%s"
+	V2Candles                    = "/v2/candles/%s/%s"
+)
+
+func (e Endpoints) toString() string {
+	return fmt.Sprintf("%s", e)
 }
