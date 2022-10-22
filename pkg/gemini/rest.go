@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/eightseventhreethree/go-gemini-api/pkg/handlers"
+	"github.com/hashicorp/go-retryablehttp"
 )
 
 type ClientOpts struct {
@@ -35,21 +36,22 @@ type client struct {
 	ApiKey     string
 	ApiSecret  string
 	BaseURL    string
-	HTTPClient *http.Client
+	HTTPClient *retryablehttp.Client
 }
 
 func NewClient(opts *ClientOpts) Client {
+	c := retryablehttp.NewClient()
+	c.RetryMax = opts.RetryLimit
+	c.RetryWaitMin = opts.RetryDelay
 	return &client{
-		BaseURL:   opts.BaseURL,
-		ApiKey:    opts.ApiKey,    // unused atm
-		ApiSecret: opts.ApiSecret, // unused atm
-		HTTPClient: &http.Client{
-			Timeout: opts.Timeout,
-		},
+		BaseURL:    opts.BaseURL,
+		ApiKey:     opts.ApiKey,    // unused atm
+		ApiSecret:  opts.ApiSecret, // unused atm
+		HTTPClient: c,
 	}
 }
 
-func (c *client) httpRequest(req *http.Request) (*http.Response, error) {
+func (c *client) httpRequest(req *retryablehttp.Request) (*http.Response, error) {
 	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 	req.Header.Set("Accept", "application/json; charset=utf-8")
 
@@ -66,7 +68,7 @@ func (c *client) httpRequest(req *http.Request) (*http.Response, error) {
 
 func (c *client) getUmarshalAndStore(u string, s interface{}) error {
 	endpoint := fmt.Sprintf("%s%s", c.BaseURL, u)
-	req, err := http.NewRequest("GET", endpoint, nil)
+	req, err := retryablehttp.NewRequest("GET", endpoint, nil)
 	handlers.CheckErrLog(err, "Failed to create NewRequest")
 
 	resp, err := c.httpRequest(req)

@@ -1,7 +1,7 @@
 # Go parameters
 GOCMD=go
 
-all: gen test
+all: test
 
 vendor: FORCE
 	$(GOCMD) mod vendor
