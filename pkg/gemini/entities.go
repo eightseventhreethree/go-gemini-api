@@ -79,6 +79,25 @@ type OrderBookResponse struct {
 	Asks []OrderBookFields
 }
 
+type TradeHistoryRequest struct {
+	Symbol        string       `json:"symbol"`
+	Timestamp     TimeNotation `json:"timestamp,omitempty"`
+	SinceTid      int32        `json:"since_tid,omitempty"`
+	LimitTrades   int32        `json:"limit_trades,omitempty"`
+	IncludeBreaks bool         `json:"include_breaks,omitempty"`
+}
+
+type TradeHistoryResponse struct {
+	Timestamp   Epoch           `json:"timestamp"`
+	Timestampms Epoch           `json:"timestampms"`
+	Tid         int32           `json:"tid"`
+	Price       decimal.Decimal `json:"price"`
+	Amount      decimal.Decimal `json:"amount"`
+	Exchange    string          `json:"exchange"`
+	Type        TradeType       `json:"type"`
+	Broken      bool            `json:"broken"`
+}
+
 type PriceFeedResponse struct {
 	Pair             string `json:"pair"`
 	Price            string `json:"price"`
@@ -111,4 +130,13 @@ const (
 	Hour1 TimeNotation = "1hr"
 	Hour6 TimeNotation = "6hr"
 	Day1  TimeNotation = "1day"
+)
+
+type Epoch int64
+
+type TradeType string
+
+const (
+	Buy  TradeType = "buy"
+	Sell TradeType = "sell"
 )

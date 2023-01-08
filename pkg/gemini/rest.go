@@ -27,7 +27,7 @@ type Client interface {
 	GetTickerV2(symbol *SymbolRequest) (TickerV2Response, error)
 	GetCandles(candles *CandlesRequest) (CandlesResponse, error)
 	GetCurrentOrderBook(order *OrderBookRequest) (OrderBookResponse, error)
-	GetTradeHistory(order *OrderBookRequest) (OrderBookResponse, error)
+	GetTradeHistory(history *TradeHistoryRequest) (TradeHistoryResponse, error)
 	GetCurrentAuction(symbol *SymbolRequest) (CurrentAuctionResponse, error)
 	GetPriceFeed() ([]PriceFeedResponse, error)
 }
@@ -145,13 +145,12 @@ func (c *client) GetCurrentOrderBook(order *OrderBookRequest) (OrderBookResponse
 }
 
 // GetTradeHistory https://docs.gemini.com/rest-api/#trade-history
-func (c *client) GetTradeHistory(order *OrderBookRequest) (OrderBookResponse, error) {
-	e := fmt.Sprintf(V1CurrentOrderBook, order.Symbol)
-	e = fmt.Sprintf("%s?limit_asks=%v&limit_bids=%v", e, order.LimitAsks, order.LimitBids)
-	orderBookResp := OrderBookResponse{}
-	err := c.getUmarshalAndStore(e, &orderBookResp)
+func (c *client) GetTradeHistory(history *TradeHistoryRequest) (TradeHistoryResponse, error) {
+	e := fmt.Sprintf(V1TradeHistory, history.Symbol)
+	historyResp := TradeHistoryResponse{}
+	err := c.getUmarshalAndStore(e, &historyResp)
 	handlers.CheckErrLog(err, "failed GetTradeHistory()")
-	return orderBookResp, err
+	return historyResp, err
 }
 
 // GetCurrentAuction https://docs.gemini.com/rest-api/#current-auction
