@@ -2,6 +2,8 @@
 
 A Go library for interacting with the Gemini API. An example can be found in the examples directory or below.
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/a1dd7404d27197448b09/maintainability)](https://codeclimate.com/github/eightseventhreethree/go-gemini-api/maintainability)
+
 ```
 package main
 
