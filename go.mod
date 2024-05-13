@@ -1,7 +1,7 @@
 module github.com/eightseventhreethree/go-gemini-api
 
 require (
-	github.com/hashicorp/go-retryablehttp v0.7.5
+	github.com/hashicorp/go-retryablehttp v0.7.6
 	github.com/shopspring/decimal v1.4.0
 	github.com/stretchr/testify v1.9.0
 	golang.org/x/tools/gopls v0.9.1
@@ -17,7 +17,7 @@ require (
 	golang.org/x/exp/typeparams v0.0.0-20220218215828-6cf2b201936e // indirect
 	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4 // indirect
 	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4 // indirect
-	golang.org/x/sys v0.0.0-20220722155257-8c9f86f7a55f // indirect
+	golang.org/x/sys v0.20.0 // indirect
 	golang.org/x/text v0.3.8 // indirect
 	golang.org/x/tools v0.1.12 // indirect
 	golang.org/x/vuln v0.0.0-20220613164644-4eb5ba49563c // indirect
