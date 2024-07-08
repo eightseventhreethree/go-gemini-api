@@ -4,7 +4,7 @@ require (
 	github.com/hashicorp/go-retryablehttp v0.7.7
 	github.com/shopspring/decimal v1.4.0
 	github.com/stretchr/testify v1.9.0
-	golang.org/x/tools/gopls v0.16.0
+	golang.org/x/tools/gopls v0.16.1
 )
 
 require (
@@ -19,7 +19,7 @@ require (
 	golang.org/x/sys v0.21.0 // indirect
 	golang.org/x/telemetry v0.0.0-20240607193123-221703e18637 // indirect
 	golang.org/x/text v0.16.0 // indirect
-	golang.org/x/tools v0.22.1-0.20240620150659-cb3016b76f3e // indirect
+	golang.org/x/tools v0.22.1-0.20240628205440-9c895dd76b34 // indirect
 	golang.org/x/vuln v1.0.4 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	honnef.co/go/tools v0.4.7 // indirect
