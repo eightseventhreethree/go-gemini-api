@@ -3,7 +3,7 @@ module github.com/eightseventhreethree/go-gemini-api
 require (
 	github.com/hashicorp/go-retryablehttp v0.7.8
 	github.com/shopspring/decimal v1.4.0
-	github.com/stretchr/testify v1.10.0
+	github.com/stretchr/testify v1.11.1
 	golang.org/x/tools/gopls v0.20.0
 )
 
